@@ -1,0 +1,75 @@
+@startuml "Purchase Module UI Mockup"
+salt
+{
+{^"Purchase Module System"}
+{
+[Supplier Management] | [Purchase Orders] | [Quality Control] | [Reports]
+}
+
+{/ "Supplier Management"
+{
+{+ "Supplier Registration (QMSP12-F04)"
+ Company Name: | "                    " 
+ Contact Person: | "                  "
+ Email: | "                          "
+ Phone: | "                          "
+ Address: | "                        "
+ [Upload Documents]
+}
+
+{+ "Supplier Assessment (QMSP12-F05)"
+ Quality System: | "★★★★☆"
+ Technical Capability: | "★★★★★"
+ Financial Status: | "★★★★☆"
+ [Submit Assessment]
+}
+}
+|
+{/ "Purchase Orders"
+{+ "Purchase Order (QMSP12-F06)"
+ PO Number: | "AUTO-GENERATED"
+ Supplier: | ^"Select Supplier     ▼^"
+ 
+{#
+ . | Material | Qty | Price | Total
+ 1 | "Item 1" | "100" | "$10" | "$1000"
+ 2 | "Item 2" | "50" | "$20" | "$1000"
+}
+ [Create PO] | [Save] | [Submit]
+}
+}
+|
+{/ "Quality Control"
+{+ "Incoming Inspection"
+ [X] Documentation Complete
+ [X] Visual Inspection
+ [ ] Quality Check
+ 
+{+ "Quality Metrics (QMSP12-F07)"
+ Quality: | "===========>" 95%
+ Delivery: | "========>  " 80%
+ Compliance: | "=========>" 90%
+}
+ [Accept] | [Reject] | [SCAR]
+}
+}
+|
+{/ "Performance"
+{+ "Supplier Statistics"
+ Active: | "125"
+ Critical: | "45"
+ Pending: | "5"
+
+{+ "Action Items"
+ SCARs: | "3 Open"
+ Audits: | "8 Due"
+ [View Details]
+}
+}
+}
+
+{
+ Status: | "Connected to QMS" | User: | "Admin" | Last Update: | "%date("yyyy.MM.dd")"
+}
+}
+@enduml

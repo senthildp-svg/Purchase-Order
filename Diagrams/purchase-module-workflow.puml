@@ -1,0 +1,67 @@
+@startuml "Purchase Module Workflow"
+
+' Style definitions
+skinparam {
+    BackgroundColor white
+    ArrowColor #033663
+    TitleFontSize 20
+    TitleFontColor #033663
+    
+    ActivityBackgroundColor #FFFFFF
+    ActivityBorderColor #0277BD
+    ActivityFontColor #01579B
+    ActivityDiamondBackgroundColor #E1F5FE
+    ActivityDiamondBorderColor #033663
+    
+    PartitionBackgroundColor #F5F5F5
+    PartitionBorderColor #033663
+    PartitionFontColor #033663
+    PartitionFontSize 16
+    PartitionFontStyle bold
+}
+
+title Purchase Module Workflow
+
+partition "Supplier Management" {
+    start
+    :#LightYellow:Review SME-QMS-P12-F04;
+    :#LightYellow:Collect Supplier Details;
+    :#LightYellow:Store Documentation;
+    
+    :#PaleGreen:Complete SME-QMS-P12-F05;
+    :#PaleGreen:Risk Assessment;
+    :#PaleGreen:Evaluation Process;
+    
+    :#LightSalmon:Apply SME-QMS-P12-F02;
+    :#LightSalmon:Calculate Performance;
+    :#LightSalmon:Track History;
+}
+
+partition "Purchase Order Process" {
+    :#LightBlue:Create PO (SME-QMS-P12-F06);
+    :#LightBlue:Approval Workflow;
+    :#LightBlue:Track Status;
+    
+    :#Lavender:Process Material Indent;
+    :#Lavender:Quality Check;
+    :#Lavender:Update Inventory;
+}
+
+partition "Supplier List Management" {
+    :#PaleGreen:Maintain SME-QMS-P12-F03;
+    :#PaleGreen:Update Service Providers;
+    :#PaleGreen:Classify Critical/Non-critical;
+    
+    :#LightPink:Schedule (SME-QMS-P12-F01);
+    :#LightPink:Conduct Audit;
+    :#LightPink:Follow-up Actions;
+}
+
+partition "Quality Control" {
+    :#Gold:Track Deliveries;
+    :#Gold:Quality Metrics;
+    :#Gold:Corrective Actions;
+    stop
+}
+
+@enduml

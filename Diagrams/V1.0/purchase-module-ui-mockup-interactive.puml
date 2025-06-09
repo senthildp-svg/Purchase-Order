@@ -1,0 +1,138 @@
+@startuml "Purchase Module Interactive UI"
+salt
+{+
+{
+{^"SME Purchase Module System"}
+
+{
+' Main Navigation with Icons
+[≡ Dashboard] | [👥 Suppliers] | [📋 Purchase Orders] | [🔍 Quality] | [📊 Reports]
+}
+
+{T
+' Supplier Management Tab
+{+ "👥 Supplier Management"
+{
+{/ "Registration" | "Assessment" | "Agreements" | "Audit" 
+
+{* "New Supplier Registration (QMSP12-F04)" |
+{
+<&person> Company Name | "                     " {
+<&circle-check> Validated | [Check Duplicate]
+}
+<&person> Contact Person | "                   "
+<&envelope-closed> Email | "user@company.com   "
+<&phone> Phone | "+1 234 567 8900             "
+<&home> Address | {
+"Street Address                    "
+"City, State, ZIP                 "
+}
+<&document> Required Documents
+[X] Company Profile
+[X] Quality Certificates
+[ ] Financial Documents
+[ ] Technical Documentation
+[<&folder> Browse...] | [<&cloud-upload> Upload]
+[<&circle-x> Cancel] | [<&check> Save Draft] | [<&account-login> Submit]
+}
+}
+
+{* "Supplier Assessment Form (QMSP12-F05)" |
+{
+<&clipboard> Assessment Date | "2025-06-09"
+<&people> Assessed By | ^"John Smith        ▼^"
+
+{#
+Category | Rating | Weight | Score
+"Quality System" | ^"★★★★☆^" | "30%" | "24/30"
+"Technical Capability" | ^"★★★★★^" | "25%" | "25/25"
+"Financial Status" | ^"★★★☆☆^" | "20%" | "12/20"
+"Delivery Performance" | ^"★★★★☆^" | "15%" | "12/15"
+"Customer Service" | ^"★★★★☆^" | "10%" | "8/10"
+}
+
+Total Score: | "81/100" | Status: | {#90FF90}"APPROVED"
+
+[<&reload> Reset] | [<&pencil> Edit] | [<&check> Submit]
+}
+}
+|
+{+ "📋 Purchase Order"
+{
+{* "Purchase Order Form (QMSP12-F06)" |
+{
+<&document> PO Number | "PO-2025-0601" | [<&reload> Generate]
+<&calendar> Date | "2025-06-09"
+<&person> Supplier | ^"Select Approved Supplier ▼^"
+
+{#
+Code | Material | Quantity | Unit Price | Total
+"RM001" | ^"Raw Material A^" | "100" | "$50" | "$5,000"
+"CP002" | ^"Component B^" | "200" | "$25" | "$5,000"
+}
+[<&plus> Add Item] | [<&minus> Remove]
+
+Total Amount: | "$10,000" | Currency: | "USD"
+
+[<&print> Print] | [<&folder> Save] | [<&share> Submit for Approval]
+}
+}
+|
+{+ "🔍 Quality Control"
+{
+{* "Incoming Inspection Checklist" |
+{
+<&box> PO Reference | ^"PO-2025-0601 ▼^"
+<&calendar> Inspection Date | "2025-06-09"
+
+Documentation:
+[X] Delivery Note
+[X] Certificate of Conformity
+[X] Test Reports
+[ ] Material Safety Data
+
+Visual Inspection:
+[X] Packaging Integrity
+[X] Product Identification
+[X] Quantity Verification
+[ ] Physical Damage Check
+
+{#
+Parameter | Specification | Actual | Status
+"Dimension" | "100±0.5mm" | "100.2mm" | {#90FF90}"PASS"
+"Weight" | "500±5g" | "498g" | {#90FF90}"PASS"
+"Finish" | "Ra 1.6" | "Ra 1.8" | {#FFB6C1}"FAIL"
+}
+
+[<&camera-slr> Photo] | [<&pencil> Note] | [<&x> Reject] | [<&check> Accept]
+}
+}
+}
+|
+{+ "📊 Performance Dashboard"
+{
+{* "Key Metrics" |
+{
+"Active Suppliers:" | "125" | {+10%}
+"Critical Suppliers:" | "45" | {-5%}
+"Open POs:" | "28" | {+15%}
+"Pending Approvals:" | "5"
+
+Quality Metrics (QMSP12-F07):
+Quality Score | "▰▰▰▰▰▰▰▰▰▱" | "90%"
+Delivery Performance | "▰▰▰▰▰▰▰▰▱▱" | "80%"
+Documentation | "▰▰▰▰▰▰▰▰▰▱" | "85%"
+
+[<&graph> Trends] | [<&document> Report] | [<&share> Share]
+}
+}
+}
+}
+}
+
+{
+' Status Bar
+<&pulse> Status: | {#90FF90}"Connected to QMS" | <&person> User: | "Admin" | <&clock> Last Updated: | "2025-06-09 14:30"
+}
+}
+@enduml

@@ -1,0 +1,104 @@
+@startuml "Purchase Module UI Mockup"
+salt
+{
+{^"Purchase Module System"}
+
+{
+[Supplier Management] | [Purchase Orders] | [Quality Control] | [Reports]
+}
+
+{T
+{+ "Supplier Management"
+
+{
+{#
+{+ "Supplier Registration (QMSP12-F04)"
+{
+  Company Name | "                      "
+  Contact Person | "                    "
+  Email | "                            "
+  Phone | "                            "
+  Address | "                          "
+  [Upload Documents]
+}
+    
+    {+ "Supplier Assessment (QMSP12-F05)"
+{
+  Quality System Rating | {^"⭐⭐⭐⭐⭐"}
+  Technical Capability | {^"⭐⭐⭐⭐⭐"}
+  Financial Status | {^"⭐⭐⭐⭐⭐"}
+  [Submit Assessment]
+}
+}
+}
+|
+{#
+{+ "Purchase Order Management (QMSP12-F06)"
+{
+  PO Number | "AUTO-GENERATED"
+  Supplier | {^"Select Supplier     ▼"}
+  {+
+    {#
+    Material Code | Description | Quantity | Price | Total
+    "MAT001" | "Item 1" | "100" | "$10.00" | "$1,000"
+    "MAT002" | "Item 2" | "50" | "$20.00" | "$1,000"
+    }
+  }
+  [Create PO] | [Save Draft] | [Submit for Approval]
+}
+
+{+ "Material Indent (QMSP12-F08)"
+{
+  Product Code | {^"Select Product    ▼"}
+  Required Qty | "                    "
+  Target Date | "DD/MM/YYYY"
+  [Check Stock] | [Generate Indent]
+}
+  }
+|
+{#
+{+ "Quality Control Dashboard"
+{
+  {^ "Incoming Inspection"
+    [X] Documentation Complete
+    [X] Visual Inspection
+    [X] Quantity Check
+    [ ] Quality Tests
+  }
+  
+  {+ "Quality Metrics (QMSP12-F07)"
+    {
+      "Quality Score" | "▋▋▋▋▋▋▋▋▋▋ 95%"
+      "Delivery" | "▋▋▋▋▋▋▋▋░░ 80%"
+      "Documentation" | "▋▋▋▋▋▋▋▋▋░ 90%"
+    }
+  }
+    [Accept] | [Reject] | [SCAR]
+}
+}
+|
+{#
+{+ "Performance Monitoring"
+{
+  {^ "Supplier Statistics"
+    "Active Suppliers: 125"
+    "Critical Suppliers: 45"
+    "Pending Approvals: 5"
+  }
+  
+  {+ "Action Items"
+    "SCARs Open: 3"
+    "Audits Due: 8"
+    [View Details]
+  }
+}
+}
+}
+}
+
+{
+  Status Bar: "Connected to QMS | User: Admin | Last Updated: %date("yyyy.MM.dd")"
+}
+}
+
+@enduml

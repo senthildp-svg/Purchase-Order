@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SME Purchase Module System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">SME Purchase Module System</a>
+            <div class="navbar-nav">
+                <a class="nav-link active" href="#"><i class="bi bi-house-fill"></i> Home</a>
+                <a class="nav-link" href="#"><i class="bi bi-people-fill"></i> Suppliers</a>
+                <a class="nav-link" href="#"><i class="bi bi-file-text"></i> Orders</a>
+                <a class="nav-link" href="#"><i class="bi bi-search"></i> QC</a>
+                <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Reports</a>
+                <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Supplier Management Section -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="bi bi-people-fill"></i> Supplier Management
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#registration">Registration</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#assessment">Assessment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#quality-delivery">Quality & Delivery</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content mt-3">
+                            <div id="registration" class="tab-pane active">                                <form id="supplierForm" class="needs-validation" novalidate>
+                                    <!-- Company Information -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Company Name*</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="companyName" required>
+                                            <button class="btn btn-outline-primary" type="button" id="verifyCompany">
+                                                <i class="bi bi-check-circle"></i> Verify
+                                            </button>
+                                        </div>
+                                        <div id="companyFeedback" class="form-text"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Contact Person*</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Designation*</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Email*</label>
+                                            <input type="email" class="form-control" required 
+                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                                            <div class="invalid-feedback">Please enter a valid email address</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Phone*</label>
+                                            <input type="tel" class="form-control" required 
+                                                pattern="[0-9+\-\s()]{10,}">
+                                            <div class="invalid-feedback">Please enter a valid phone number</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Document Upload Section -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Required Documents</label>
+                                        <div class="upload-zone" id="uploadZone">
+                                            <i class="bi bi-cloud-upload fs-2"></i>
+                                            <p>Drag & drop files here or click to browse</p>
+                                            <input type="file" class="d-none" id="fileInput" multiple>
+                                        </div>
+                                        <div id="uploadedFiles" class="mt-2"></div>
+                                    </div>
+
+                                    <!-- Quality Certifications -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Quality Certifications</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input cert-check" type="checkbox" value="ISO9001">
+                                            <label class="form-check-label">ISO 9001</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cert-check" type="checkbox" value="ISO13485">
+                                            <label class="form-check-label">ISO 13485</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cert-check" type="checkbox" value="Other">
+                                            <label class="form-check-label">Other</label>
+                                            <input type="text" class="form-control mt-2" id="otherCert" disabled>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Categories -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Product Categories</label>
+                                        <select class="form-select" multiple id="productCategories">
+                                            <option value="raw">Raw Materials</option>
+                                            <option value="components">Components</option>
+                                            <option value="equipment">Equipment</option>
+                                            <option value="services">Services</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button type="button" class="btn btn-secondary" id="resetForm">
+                                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="saveAsDraft">
+                                            <i class="bi bi-save"></i> Save as Draft
+                                        </button>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-check-circle"></i> Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="assessment" class="tab-pane fade">
+                                <form id="assessmentForm" class="needs-validation" novalidate>
+                                    <!-- Assessment Details -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Assessment Date*</label>
+                                            <input type="date" class="form-control" id="assessmentDate" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Assessor*</label>
+                                            <input type="text" class="form-control" id="assessor" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Rating Categories -->
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            Rating Categories
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Quality Management System -->
+                                            <div class="mb-4">
+                                                <label class="form-label d-flex justify-content-between align-items-center">
+                                                    <span>Quality Management System</span>
+                                                    <small class="text-muted">Weight: 30%</small>
+                                                </label>
+                                                <div class="rating-input-wrapper" data-weight="30">
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star" data-rating="1"></i>
+                                                        <i class="bi bi-star" data-rating="2"></i>
+                                                        <i class="bi bi-star" data-rating="3"></i>
+                                                        <i class="bi bi-star" data-rating="4"></i>
+                                                        <i class="bi bi-star" data-rating="5"></i>
+                                                    </div>
+                                                    <div class="rating-text mt-1"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Technical Capability -->
+                                            <div class="mb-4">
+                                                <label class="form-label d-flex justify-content-between align-items-center">
+                                                    <span>Technical Capability</span>
+                                                    <small class="text-muted">Weight: 25%</small>
+                                                </label>
+                                                <div class="rating-input-wrapper" data-weight="25">
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star" data-rating="1"></i>
+                                                        <i class="bi bi-star" data-rating="2"></i>
+                                                        <i class="bi bi-star" data-rating="3"></i>
+                                                        <i class="bi bi-star" data-rating="4"></i>
+                                                        <i class="bi bi-star" data-rating="5"></i>
+                                                    </div>
+                                                    <div class="rating-text mt-1"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Financial Stability -->
+                                            <div class="mb-4">
+                                                <label class="form-label d-flex justify-content-between align-items-center">
+                                                    <span>Financial Stability</span>
+                                                    <small class="text-muted">Weight: 20%</small>
+                                                </label>
+                                                <div class="rating-input-wrapper" data-weight="20">
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star" data-rating="1"></i>
+                                                        <i class="bi bi-star" data-rating="2"></i>
+                                                        <i class="bi bi-star" data-rating="3"></i>
+                                                        <i class="bi bi-star" data-rating="4"></i>
+                                                        <i class="bi bi-star" data-rating="5"></i>
+                                                    </div>
+                                                    <div class="rating-text mt-1"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Delivery Performance -->
+                                            <div class="mb-4">
+                                                <label class="form-label d-flex justify-content-between align-items-center">
+                                                    <span>Delivery Performance</span>
+                                                    <small class="text-muted">Weight: 15%</small>
+                                                </label>
+                                                <div class="rating-input-wrapper" data-weight="15">
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star" data-rating="1"></i>
+                                                        <i class="bi bi-star" data-rating="2"></i>
+                                                        <i class="bi bi-star" data-rating="3"></i>
+                                                        <i class="bi bi-star" data-rating="4"></i>
+                                                        <i class="bi bi-star" data-rating="5"></i>
+                                                    </div>
+                                                    <div class="rating-text mt-1"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Service & Support -->
+                                            <div class="mb-4">
+                                                <label class="form-label d-flex justify-content-between align-items-center">
+                                                    <span>Service & Support</span>
+                                                    <small class="text-muted">Weight: 10%</small>
+                                                </label>
+                                                <div class="rating-input-wrapper" data-weight="10">
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star" data-rating="1"></i>
+                                                        <i class="bi bi-star" data-rating="2"></i>
+                                                        <i class="bi bi-star" data-rating="3"></i>
+                                                        <i class="bi bi-star" data-rating="4"></i>
+                                                        <i class="bi bi-star" data-rating="5"></i>
+                                                    </div>
+                                                    <div class="rating-text mt-1"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Assessment Result -->
+                                    <div class="card mb-3">
+                                        <div class="card-header">Assessment Result</div>
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <div class="score-display text-center">
+                                                        <h3 class="mb-0" id="totalScore">0</h3>
+                                                        <small class="text-muted">Total Score</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="status-display text-center">
+                                                        <h3 class="mb-0" id="assessmentStatus">-</h3>
+                                                        <small class="text-muted">Status</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="recommendation-display text-center">
+                                                        <select class="form-select" id="recommendation" required>
+                                                            <option value="">Select Action...</option>
+                                                            <option value="approve">Approve</option>
+                                                            <option value="conditional">Conditional Approval</option>
+                                                            <option value="reject">Reject</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Notes and Evidence -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Assessment Notes</label>
+                                                <textarea class="form-control" id="assessmentNotes" rows="3"></textarea>
+                                            </div>
+
+                                            <!-- Evidence Upload -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Supporting Evidence</label>
+                                                <div class="upload-zone" id="evidenceUploadZone">
+                                                    <i class="bi bi-cloud-upload fs-2"></i>
+                                                    <p>Drag & drop evidence files here or click to browse</p>
+                                                    <input type="file" class="d-none" id="evidenceFileInput" multiple>
+                                                </div>
+                                                <div id="uploadedEvidence" class="mt-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button type="button" class="btn btn-secondary" id="resetAssessment">
+                                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-save"></i> Save Assessment
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="submitForApproval">
+                                            <i class="bi bi-check-circle"></i> Submit for Approval
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="quality-delivery" class="tab-pane fade">
+                                <form id="qualityDeliveryForm" class="needs-validation" novalidate>
+                                    <!-- Summary Period -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Period Start*</label>
+                                            <input type="date" class="form-control" id="periodStart" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Period End*</label>
+                                            <input type="date" class="form-control" id="periodEnd" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Supplier Selection -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Supplier*</label>
+                                            <select class="form-select" id="supplierSelect" required>
+                                                <option value="">Select Supplier...</option>
+                                                <option value="1">Supplier A</option>
+                                                <option value="2">Supplier B</option>
+                                                <option value="3">Supplier C</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quality Metrics -->
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h6 class="mb-0">Quality Metrics</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Total Deliveries</label>
+                                                    <input type="number" class="form-control" id="totalDeliveries" min="0" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Rejected Items</label>
+                                                    <input type="number" class="form-control" id="rejectedItems" min="0" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Quality Rate</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="qualityRate" readonly>
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Quality Issues -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Quality Issues</label>
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm" id="qualityIssuesTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Issue Type</th>
+                                                                <th>Description</th>
+                                                                <th>Date</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-select form-select-sm">
+                                                                        <option>Specification</option>
+                                                                        <option>Damage</option>
+                                                                        <option>Documentation</option>
+                                                                        <option>Other</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="date" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-select form-select-sm">
+                                                                        <option>Open</option>
+                                                                        <option>In Progress</option>
+                                                                        <option>Resolved</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-sm btn-outline-danger">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" id="addQualityIssue">
+                                                        <i class="bi bi-plus"></i> Add Issue
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delivery Metrics -->
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h6 class="mb-0">Delivery Metrics</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Total Orders</label>
+                                                    <input type="number" class="form-control" id="totalOrders" min="0" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">On-Time Deliveries</label>
+                                                    <input type="number" class="form-control" id="onTimeDeliveries" min="0" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">On-Time Delivery Rate</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="deliveryRate" readonly>
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Delivery Issues -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Delivery Issues</label>
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm" id="deliveryIssuesTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Issue Type</th>
+                                                                <th>PO Number</th>
+                                                                <th>Expected Date</th>
+                                                                <th>Actual Date</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-select form-select-sm">
+                                                                        <option>Late Delivery</option>
+                                                                        <option>Partial Delivery</option>
+                                                                        <option>Wrong Quantity</option>
+                                                                        <option>Other</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="date" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="date" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-select form-select-sm">
+                                                                        <option>Open</option>
+                                                                        <option>In Progress</option>
+                                                                        <option>Resolved</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-sm btn-outline-danger">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" id="addDeliveryIssue">
+                                                        <i class="bi bi-plus"></i> Add Issue
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Summary Notes -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Summary Notes</label>
+                                        <textarea class="form-control" id="summaryNotes" rows="3"></textarea>
+                                    </div>
+
+                                    <!-- Action Plan -->
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h6 class="mb-0">Action Plan</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm" id="actionPlanTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Action Item</th>
+                                                                <th>Priority</th>
+                                                                <th>Due Date</th>
+                                                                <th>Responsible</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-select form-select-sm">
+                                                                        <option>High</option>
+                                                                        <option>Medium</option>
+                                                                        <option>Low</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="date" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control form-control-sm">
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-select form-select-sm">
+                                                                        <option>Not Started</option>
+                                                                        <option>In Progress</option>
+                                                                        <option>Completed</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-sm btn-outline-danger">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" id="addActionItem">
+                                                        <i class="bi bi-plus"></i> Add Action Item
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Form Actions -->
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button type="button" class="btn btn-secondary" id="resetQualityDelivery">
+                                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-save"></i> Save Summary
+                                        </button>
+                                        <button type="button" class="btn btn-success" id="generateReport">
+                                            <i class="bi bi-file-earmark-text"></i> Generate Report
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <!-- Main Content Area -->
+                <div class="row">                    <!-- Purchase Orders Section -->
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="bi bi-file-text"></i> Purchase Orders
+                                </div>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newPOModal">
+                                    <i class="bi bi-plus-circle"></i> New PO
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>PO Number</th>
+                                                <th>Supplier</th>
+                                                <th>Date</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>PO-2025-0601</td>
+                                                <td>Supplier A</td>
+                                                <td>2025-06-09</td>
+                                                <td>$10,700</td>
+                                                <td><span class="badge bg-warning">Pending Approval</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary" title="View">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" title="Approve">
+                                                        <i class="bi bi-check-circle"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" title="Cancel">
+                                                        <i class="bi bi-x-circle"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New PO Modal -->
+                    <div class="modal fade" id="newPOModal" tabindex="-1">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Purchase Order</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="poForm" class="needs-validation" novalidate>
+                                        <!-- PO Header -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <label class="form-label">PO Number</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" value="PO-2025-0602" readonly>
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-lock-fill" title="Auto-generated"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Date*</label>
+                                                <input type="date" class="form-control" required min="2025-06-09">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Expected Delivery*</label>
+                                                <input type="date" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Supplier Selection -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Supplier*</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" required>
+                                                        <option value="">Select Supplier...</option>
+                                                        <option value="1">Supplier A (Approved)</option>
+                                                        <option value="2">Supplier B (Approved)</option>
+                                                        <option value="3" disabled>Supplier C (Pending)</option>
+                                                    </select>
+                                                    <button class="btn btn-outline-secondary" type="button" title="View Supplier Details">
+                                                        <i class="bi bi-info-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Payment Terms</label>
+                                                <select class="form-select">
+                                                    <option>Net 30</option>
+                                                    <option>Net 45</option>
+                                                    <option>Net 60</option>
+                                                    <option>Immediate</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Line Items -->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Line Items
+                                                <button type="button" class="btn btn-sm btn-outline-primary float-end" id="addLineItem">
+                                                    <i class="bi bi-plus"></i> Add Item
+                                                </button>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="lineItemsTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width: 15%">Item Code</th>
+                                                                <th style="width: 25%">Description</th>
+                                                                <th style="width: 15%">Quantity</th>
+                                                                <th style="width: 15%">Unit Price</th>
+                                                                <th style="width: 15%">Total</th>
+                                                                <th style="width: 15%">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control form-control-sm item-code" required>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control form-control-sm" required>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="number" class="form-control form-control-sm quantity" required min="1">
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <span class="input-group-text">$</span>
+                                                                        <input type="number" class="form-control form-control-sm unit-price" required min="0" step="0.01">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <span class="input-group-text">$</span>
+                                                                        <input type="text" class="form-control form-control-sm line-total" readonly>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-sm btn-outline-danger remove-item">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-sm btn-outline-info check-stock">
+                                                                        <i class="bi bi-box-seam"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Totals -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Notes</label>
+                                                <textarea class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>Subtotal:</span>
+                                                            <span id="subtotal">$0.00</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span>Tax (7%):</span>
+                                                            <span id="tax">$0.00</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between fw-bold">
+                                                            <span>Total:</span>
+                                                            <span id="total">$0.00</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Budget Warning -->
+                                        <div class="alert alert-warning d-none" id="budgetWarning">
+                                            <i class="bi bi-exclamation-triangle"></i>
+                                            Order total exceeds monthly budget limit. Additional approval required.
+                                        </div>
+
+                                        <!-- Action Buttons -->
+                                        <div class="text-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-primary" id="saveDraft">
+                                                <i class="bi bi-save"></i> Save Draft
+                                            </button>
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="bi bi-send"></i> Submit for Approval
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Control Section -->
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <i class="bi bi-search"></i> Quality Control
+                            </div>
+                            <div class="card-body">
+                                <!-- QC content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
+
+    <!-- Status Bar -->
+    <footer class="footer mt-auto py-2 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="text-success"><i class="bi bi-check-circle-fill"></i> System: Online</span>
+                    <span class="ms-3"><i class="bi bi-person-fill"></i> User: Admin</span>
+                    <span class="ms-3"><i class="bi bi-clock-fill"></i> Updated: 2025-06-09 14:30</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="qd_script.js"></script>
+</body>
+</html>

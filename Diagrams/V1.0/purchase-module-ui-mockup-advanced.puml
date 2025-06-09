@@ -1,0 +1,227 @@
+@startuml "Purchase Module Interactive UI with Validations"
+salt
+{+
+{
+{^"SME Purchase Module System"}
+
+{
+[🏠 Home] | [👥 Suppliers] | [📋 Orders] | [🔍 QC] | [📊 Reports] | [⚙ Settings]
+}
+
+{T
+' Supplier Management Tab with Extended Validation
+{+ "👥 Supplier Management"
+{
+{/ "Registration" | "Assessment" | "Documents" | "Audit" | "History" 
+
+{* "New Supplier Registration (QMSP12-F04)" |
+{
+' Form with validation rules
+<&person> Company Name* | "                     " {
+<&circle-check> Status | {#FFE4E1} "Company name required"
+[Verify]
+}
+
+<&person> Contact Person* | "                   " {
+<&info> "Must be authorized person"
+}
+
+<&envelope-closed> Email* | "user@company.com   " {
+<&circle-check> Status | {#98FB98} "Valid email format"
+}
+
+<&phone> Phone* | "+1 234 567 8900             " {
+<&circle-check> Status | {#98FB98} "Valid format"
+}
+
+' Required Documents Section
+<&document> Required Documentation
+{#
+Document Type | Status | Action | Expiry
+"Quality Certificate" | {#FFE4E1} "Missing" | [Upload] | "N/A"
+"ISO Certification" | {#98FB98} "Valid" | [View] | "2026-06-09"
+"Financial Statement" | {#FFE4E1} "Expired" | [Update] | "2024-12-31"
+"Technical Specs" | {#FFFFE0} "Pending Review" | [Review] | "2025-12-31"
+}
+
+' Real-time Validation Status
+{
+Completion Status: | "7/10 Required Fields"
+Documentation: | "2/4 Documents"
+Overall Status: | {#FFE4E1} "INCOMPLETE"
+}
+
+[<&x> Clear] | [<&box> Save Draft] | [<&check> Submit]
+}
+}
+
+{* "Enhanced Supplier Assessment (QMSP12-F05)" |
+{
+Assessment Date* | "2025-06-09" {
+<&calendar> | [Select Date]
+}
+
+Assessor* | ^"John Smith        ▼^" {
+<&person> Role | "Quality Manager"
+}
+
+{#
+Evaluation Criteria | Rating | Weight | Score | Status
+"Quality Management System" | ^"★★★★☆^" | "30%" | "24/30" | {#98FB98} "PASS"
+"Technical Capability" | ^"★★★★★^" | "25%" | "25/25" | {#98FB98} "PASS"
+"Financial Stability" | ^"★★★☆☆^" | "20%" | "12/20" | {#FFE4E1} "FAIL"
+"Delivery Performance" | ^"★★★★☆^" | "15%" | "12/15" | {#98FB98} "PASS"
+"Service & Support" | ^"★★★★☆^" | "10%" | "8/10" | {#98FB98} "PASS"
+}
+
+' Interactive Assessment Summary
+{
+Overall Score: | "81/100" | Classification: | {#FFFFE0} "CONDITIONAL APPROVAL"
+Recommendations: | ^"Select action...▼^"
+[<&comment-square> Add Note] | [<&file> Attach Evidence]
+}
+
+' Action Buttons with Validation
+{
+[<&reload> Reset] | [<&pencil> Edit] | [<&check> Submit for Approval]
+}
+
+' Real-time Validation Messages
+{^
+{#FFE4E1} "⚠ Financial score below threshold (60%)"
+{#98FB98} "✓ Quality system meets requirements"
+{#FFFFE0} "ℹ Pending management review"
+}
+}
+}
+|
+{+ "📋 Purchase Order Management"
+{
+{* "Interactive PO Form (QMSP12-F06)" |
+{
+' PO Header with Validation
+<&file> PO Number | "PO-2025-0601" {
+<&lock-locked> "Auto-generated"
+}
+
+<&calendar> Date* | "2025-06-09" {
+<&clock> "Must be future date"
+}
+
+<&person> Supplier* | ^"Select Approved Supplier ▼^" {
+<&magnifying-glass> [Search] | [View Details]
+}
+
+' Line Items with Real-time Validation
+{#
+Code | Material | Qty | Unit Price | Total | Stock
+"RM001" | ^"Raw Material A^" | "100" | "$50" | "$5,000" | {#98FB98} "Available"
+"CP002" | ^"Component B^" | "200" | "$25" | "$5,000" | {#FFE4E1} "Low Stock"
+}
+
+' Dynamic Totals
+Subtotal: | "$10,000"
+Tax (7%): | "$700"
+Total: | "$10,700"
+
+' Budget Validation
+Budget Status: | {#FFFFE0} "Warning: Near budget limit"
+
+' Action Buttons
+[<&plus> Add Item] | [<&minus> Remove] | [<&calculator> Recalculate]
+
+' Approval Flow
+Approval Status: | ^"Select Approver ▼^" | [Request Approval]
+}
+
+' Material Indent Integration
+{* "Material Indent Form (QMSP12-F08)" |
+{
+Product* | ^"Select Product    ▼^" {
+<&info> Stock Level | {#98FB98} "Adequate"
+}
+
+Required Qty* | "                  " {
+<&info> "Min Order: 100"
+}
+
+Target Date* | "2025-06-09" {
+<&info> "Lead Time: 14 days"
+}
+
+[Check Availability] | [Generate Indent] | [Rush Order]
+}
+}
+|
+{+ "🔍 Quality Control Hub"
+{
+{* "Advanced Inspection Checklist" |
+{
+<&box> PO Reference | ^"PO-2025-0601 ▼^"
+
+' Interactive Checklist
+{#
+Check Point | Status | Action | Notes
+"Documents" | [X] | [View] | "Complete"
+"Quantity" | [X] | [Count] | "Verified"
+"Visual" | [X] | [Photos] | "Acceptable"
+"Quality" | [ ] | [Test] | "Pending"
+}
+
+' QC Measurements
+{#
+Parameter | Spec | Actual | Tolerance | Status
+"Length" | "100mm" | "100.2" | "±0.5" | {#98FB98} "✓"
+"Width" | "50mm" | "50.8" | "±0.5" | {#FFE4E1} "✗"
+"Weight" | "500g" | "498" | "±5" | {#98FB98} "✓"
+}
+
+' Decision Making
+Quality Decision: | ^"Select Action ▼^"
+[📸 Photos] | [📝 Notes] | [❌ Reject] | [✓ Accept]
+}
+}
+}
+|
+{+ "📊 Analytics Dashboard"
+{
+{* "Real-time Metrics" |
+{
+' KPIs with Trends
+{#
+Metric | Current | Target | Trend
+"Supplier Rating" | "4.2/5" | "4.5" | "↗ +5%"
+"Quality Score" | "92%" | "95%" | "↘ -2%"
+"On-time Delivery" | "87%" | "90%" | "→ 0%"
+}
+
+' Interactive Charts
+Quality Trends:
+"▰▰▰▰▰▰▰▰▰▱" | "90%"
+Delivery Performance:
+"▰▰▰▰▰▰▰▰▱▱" | "80%"
+
+' Alerts & Actions
+{^
+{#FFE4E1} "⚠ 3 Overdue POs"
+{#FFFFE0} "⚠ 2 Pending Approvals"
+{#98FB98} "✓ Quality targets met"
+}
+
+[📊 Export Report] | [📧 Share] | [🔄 Refresh]
+}
+}
+}
+}
+}
+
+' Status Bar with System Health
+{
+<&pulse> System: | {#98FB98} "Online" | 
+<&person> User: | "Admin" | 
+<&clock> Updated: | "2025-06-09 14:30" |
+<&wifi> Connection: | {#98FB98} "Secure" |
+[Help] | [Settings]
+}
+}
+@enduml

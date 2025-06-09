@@ -1,0 +1,99 @@
+@startuml "Purchase Module UI Mockup"
+salt
+{+
+{
+{^"Purchase Module System"}
+
+[Supplier Management] | [Purchase Orders] | [Quality Control] | [Reports]
+
+{T
+{+ "Supplier Management"
+{
+{* "Supplier Registration Form (QMSP12-F04)" |
+{
+Company Name | "                     "
+Contact Person | "                   "
+Email | "                           "
+Phone | "                           "
+Address | {
+"                                  "
+"                                  "
+}
+[Browse...] | [Upload Documents]
+}
+}
+
+{* "Supplier Assessment (QMSP12-F05)" |
+{
+Rating | "★★★★☆"
+Technical | "★★★★★"
+Financial | "★★★☆☆"
+[Submit Assessment]
+}
+}
+|
+{+ "Purchase Orders"
+{
+{* "Purchase Order Form (QMSP12-F06)" |
+{
+PO Number | "AUTO-GENERATED"
+Date | "2025-06-09"
+{#
+. | Material | Qty | Price | Total
+1 | "Raw Material A" | 100 | $50 | $5,000
+2 | "Component B" | 200 | $25 | $5,000
+}
+[Create] | [Save Draft] | [Submit]
+}
+}
+
+{* "Material Indent (QMSP12-F08)" |
+{
+Product | ^"Select Product    ▼^"
+Quantity | "                  "
+Date | "2025-06-09"
+[Check Stock] | [Generate]
+}
+}
+|
+{+ "Quality Control"
+{
+{* "Incoming Inspection" |
+[X] Documentation
+[X] Visual Check
+[ ] Quality Tests
+[ ] Compliance
+}
+
+{* "Quality Metrics (QMSP12-F07)" |
+{
+Quality | "===========>" | "95%"
+Delivery | "=========>  " | "85%"
+[Accept] | [Reject] | [SCAR]
+}
+}
+|
+{+ "Performance"
+{
+{* "Statistics" |
+Active | "125"
+Critical | "45"
+Pending | "5"
+}
+
+{* "Actions" |
+{
+SCARs | "3 Open"
+Audits | "8 Due"
+[View Details]
+}
+}
+}
+}
+}
+
+{
+Status: | "Connected to QMS" | User: | "Admin" | Updated: | "2025-06-09"
+}
+}
+@enduml

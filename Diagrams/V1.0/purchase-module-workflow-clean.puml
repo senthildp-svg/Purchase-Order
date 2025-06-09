@@ -1,0 +1,94 @@
+@startuml "Purchase Module Workflow"
+
+' Style definitions
+skinparam {
+    BackgroundColor white
+    ArrowColor #033663
+    TitleFontSize 20
+    TitleFontColor #033663
+    
+    ActivityBackgroundColor #FFFFFF
+    ActivityBorderColor #0277BD
+    ActivityFontColor #01579B
+    ActivityDiamondBackgroundColor #E1F5FE
+    ActivityDiamondBorderColor #033663
+    
+    PartitionBackgroundColor #F5F5F5
+    PartitionBorderColor #033663
+    PartitionFontColor #033663
+    PartitionFontSize 16
+    PartitionFontStyle bold
+}
+
+title Purchasing Process and Supplier Selection Workflow
+
+legend right
+    |= Type |= Description |
+    |<#E1F5FE> QMS Forms | Standard QMS Documentation |
+    |<#FFEB3B> Decision Points | Process Controls |
+    |<#81C784> External Processes | Outsourced Activities |
+endlegend
+
+start
+
+partition "Supplier Selection & Assessment" {
+    :Identify & Select Suppliers> #FFFFFF;
+    :Register Supplier\n(QMSP12-F04)> #E1F5FE;
+    :Collect Detailed Supplier Information> #FFFFFF;
+    :Complete Supplier Assessment\n(QMSP12-F05)> #E1F5FE;
+    :Perform Risk Assessment & Evaluation> #FFFFFF;
+}
+
+partition "Supplier Approval & Management" {
+    :Approve Supplier> #LightGreen;
+    :Maintain Approved Supplier List\n(QMSP12-F03 / F03A)> #E1F5FE;
+    :Create Supplier Agreement\n(QMSP12-F10)> #E1F5FE;
+    :Schedule & Conduct Supplier Audit\n(QMSP12-F01)> #E1F5FE;
+    :Follow-up on Audit Actions> #FFFFFF;
+}
+
+partition "Purchase Order Generation" {
+    :Generate Material Indent\n(QMSP12-F08)> #E1F5FE;
+    :Review Stock Levels & Requirements> #FFFFFF;
+    :Collect Quotations & Compare> #FFFFFF;
+    :Create Purchase Order (PO)\n(QMSP12-F06)> #E1F5FE;
+    :Approve Purchase Order> #LightGreen;
+    :Communicate PO to Supplier> #FFFFFF;
+}
+
+partition "Product Verification & Quality Control" {
+    :Receive & Verify Purchased Product> #E1F5FE;
+    :Perform Quality Checks & Inspection> #E1F5FE;
+    
+    note right
+        Quality Control Gates:
+        * Incoming inspection
+        * Documentation review
+        * Compliance verification
+    end note
+    
+    :Handle Change Control\n(QMS-P03)\n(if product changes affect production)> #81C784;
+    :Control Outsourced Activities\n(QMS-P14)> #81C784;
+}
+
+partition "Ongoing Supplier Performance" {
+    :Track Quality & Delivery Metrics\n(QMSP12-F07)> #E1F5FE;
+    :Evaluate Supplier Performance Annually\n(QMSP13-F02)> #E1F5FE;
+    
+    if (Performance < 80%) then (Below Target)
+        :Issue Supplier Corrective Action Request\n(SCAR - QMSP12-F09)> #FFEB3B;
+        note right: Requires immediate action
+        :Delist Supplier from ASL> #FFEB3B;
+    else (Acceptable)
+        :Continue Regular Monitoring> #LightGreen;
+    endif
+}
+
+stop
+
+footer
+Created: %date("yyyy.MM.dd")
+Version: 1.0
+end footer
+
+@enduml

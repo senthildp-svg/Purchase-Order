@@ -1,0 +1,102 @@
+Conversation opened. 1 unread message.
+
+Skip to content
+Using Gmail with screen readers
+1 of 33,981
+Document from senthil
+Inbox
+
+Senthilkumar Pichaiyandi <senthildp@gmail.com>
+Attachments
+8:04 PM (0 minutes ago)
+to me
+
+qms.txt 
+ One attachment
+  •  Scanned by Gmail
+@startuml
+' Style definitions - Reusing the provided style for consistency
+skinparam {
+    BackgroundColor white
+    ArrowColor #033663
+    TitleFontSize 20
+    TitleFontColor #033663
+    
+    ActivityBackgroundColor #FFFFFF
+    ActivityBorderColor #0277BD
+    ActivityFontColor #01579B
+    ActivityDiamondBackgroundColor #E1F5FE
+    ActivityDiamondBorderColor #033663
+    
+    PartitionBackgroundColor #F5F5F5
+    PartitionBorderColor #033663
+    PartitionFontColor #033663
+    PartitionFontSize 16
+    PartitionFontStyle bold
+}
+
+title Purchasing Process and Supplier Selection Workflow
+
+legend right
+    |= Type |= Description |
+    |<#E1F5FE> QMS Forms | Standard QMS Documentation |
+    |<#FFEB3B> Decision Points | Process Controls |
+    |<#81C784> External Processes | Outsourced Activities |
+endlegend
+
+start
+
+partition "Supplier Selection & Assessment" {
+    :Identify & Select Suppliers;
+    :Register Supplier\n(QMSP12-F04);
+    :Collect Detailed Supplier Information;
+    :Complete Supplier Assessment\n(QMSP12-F05);
+    :Perform Risk Assessment & Evaluation;
+}
+
+partition "Supplier Approval & Management" {    :Approve Supplier> #LightGreen;
+    :Maintain Approved Supplier List\n(QMSP12-F03 / F03A)> #E1F5FE;
+    :Create Supplier Agreement\n(QMSP12-F10)> #E1F5FE;
+    :Schedule & Conduct Supplier Audit\n(QMSP12-F01);
+    :Follow-up on Audit Actions;
+}
+
+partition "Purchase Order Generation" {
+    :Generate Material Indent\n(QMSP12-F08);
+    :Review Stock Levels & Requirements;
+    :Collect Quotations & Compare;
+    :Create Purchase Order (PO)\n(QMSP12-F06);
+    :Approve Purchase Order;
+    :Communicate PO to Supplier;
+}
+
+partition "Product Verification & Quality Control" {
+    :Receive & Verify Purchased Product> #E1F5FE;
+    :Perform Quality Checks & Inspection> #E1F5FE;
+    
+    note right
+        Quality Control Gates:
+        * Incoming inspection
+        * Documentation review
+        * Compliance verification
+    end note
+    
+    :Handle Change Control\n(QMS-P03)\n(if product changes affect production)> #81C784;
+    :Control Outsourced Activities\n(QMS-P14)> #81C784;
+}
+
+partition "Ongoing Supplier Performance" {
+    :Track Quality & Delivery Metrics\n(QMSP12-F07);
+    :Evaluate Supplier Performance Annually\n(QMSP13-F02);    if (Performance < 80%) then (Below Target)
+        #FFEB3B:Issue Supplier Corrective Action Request\n(SCAR - QMSP12-F09)> 
+        note right: Requires immediate action
+        #FFEB3B:Delist Supplier from ASL>
+    else (Acceptable)
+        #LightGreen:Continue Regular Monitoring>
+    endif
+}
+
+stop
+@enduml
+qms.txt
+Displaying qms.txt.

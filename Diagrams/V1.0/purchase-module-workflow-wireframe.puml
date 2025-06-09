@@ -1,0 +1,116 @@
+@startuml "Purchase Module Workflow - Wireframe"
+
+' Wireframe style definitions
+skinparam {
+    BackgroundColor transparent
+    ArrowColor #808080
+    TitleFontSize 20
+    TitleFontColor #404040
+    
+    ActivityBackgroundColor transparent
+    ActivityBorderColor #808080
+    ActivityFontColor #404040
+    ActivityDiamondBackgroundColor transparent
+    ActivityDiamondBorderColor #808080
+    
+    PartitionBackgroundColor transparent
+    PartitionBorderColor #808080
+    PartitionFontColor #404040
+    PartitionFontSize 16
+    PartitionFontStyle bold
+
+    NoteBackgroundColor transparent
+    NoteBorderColor #808080
+}
+
+title [Wireframe] Purchasing Process and Supplier Selection Workflow
+
+legend right
+    |= Component |= Description |
+    |<#F5F5F5> Primary Flow | Main Process Steps |
+    |<#E0E0E0> Forms & Docs | QMS Documentation |
+    |<#D3D3D3> Decision Points | Process Controls |
+endlegend
+
+start
+
+partition "Supplier Selection & Assessment" {
+    :[User Input]\nIdentify & Select Suppliers> #F5F5F5;
+    :[Form]\nRegister Supplier Form> #E0E0E0;
+    note right: QMSP12-F04
+    :[Database]\nSupplier Information> #F5F5F5;
+    :[Form]\nSupplier Assessment> #E0E0E0;
+    note right: QMSP12-F05
+}
+
+partition "Supplier Approval & Management" {
+    if (Approval Required?) then (Yes)
+        :[Action]\nApprove Supplier> #D3D3D3;
+    else (No)
+        :[Action]\nRequest Additional Info> #D3D3D3;
+    endif
+    
+    :[Database]\nApproved Supplier List> #E0E0E0;
+    note right: QMSP12-F03/F03A
+    
+    :[Document]\nSupplier Agreement> #E0E0E0;
+    note right: QMSP12-F10
+}
+
+partition "Purchase Order Generation" {
+    :[Form]\nMaterial Indent> #E0E0E0;
+    note right: QMSP12-F08
+    
+    :[System]\nStock Check> #F5F5F5;
+    :[Process]\nQuotation Review> #F5F5F5;
+    
+    :[Form]\nPurchase Order> #E0E0E0;
+    note right: QMSP12-F06
+    
+    if (PO Approval?) then (Approved)
+        :[Action]\nSend to Supplier> #D3D3D3;
+    else (Rejected)
+        :[Action]\nRevise PO> #D3D3D3;
+    endif
+}
+
+partition "Quality Control" {
+    fork
+        :[Check]\nProduct Verification> #F5F5F5;
+    fork again
+        :[Check]\nDocumentation Review> #F5F5F5;
+    end fork
+    
+    :[Process]\nQuality Inspection> #F5F5F5;
+    
+    if (QC Passed?) then (Yes)
+        :[Action]\nAccept Product> #D3D3D3;
+    else (No)
+        :[Form]\nSCAR> #E0E0E0;
+        note right: QMSP12-F09
+    endif
+}
+
+partition "Performance Monitoring" {
+    :[Dashboard]\nQuality Metrics> #F5F5F5;
+    note right: QMSP12-F07
+    
+    :[Report]\nAnnual Evaluation> #E0E0E0;
+    note right: QMSP13-F02
+    
+    if (Performance >= 80%) then (Yes)
+        :[Status]\nMaintain Approval> #D3D3D3;
+    else (No)
+        :[Action]\nInitiate SCAR> #D3D3D3;
+        :[Process]\nDelist Supplier> #D3D3D3;
+    endif
+}
+
+stop
+
+footer
+Wireframe Version: 1.0
+Last Updated: %date("yyyy.MM.dd")
+end footer
+
+@enduml
