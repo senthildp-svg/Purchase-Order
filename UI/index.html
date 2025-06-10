@@ -140,30 +140,66 @@
                             <div id="assessment" class="tab-pane fade">
                                 <form id="assessmentForm" class="needs-validation" novalidate>
                                     <!-- Assessment Details -->
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Assessment Date*</label>
-                                            <input type="date" class="form-control" id="assessmentDate" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Assessor*</label>
-                                            <input type="text" class="form-control" id="assessor" required>
+                                    <div class="card mb-3">
+                                        <div class="card-header">Supplier Details</div>
+                                        <div class="card-body">
+                                            <!-- Basic Details -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Supplier Name*</label>
+                                                    <select class="form-select" id="supplierName" required>
+                                                        <option value="">Select Supplier...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Reference No*</label>
+                                                    <input type="text" class="form-control" id="referenceNo" required readonly>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Assessment Details -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Assessment Date*</label>
+                                                    <input type="date" class="form-control" id="assessmentDate" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Assessor*</label>
+                                                    <input type="text" class="form-control" id="assessor" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Company Details -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Company Type*</label>
+                                                    <select class="form-select" id="companyType" required>
+                                                        <option value="">Select Type...</option>
+                                                        <option value="manufacturer">Manufacturer</option>
+                                                        <option value="distributor">Distributor</option>
+                                                        <option value="service">Service Provider</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Primary Products/Services*</label>
+                                                    <input type="text" class="form-control" id="primaryProducts" required>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <!-- Rating Categories -->
                                     <div class="card mb-3">
                                         <div class="card-header">
-                                            Rating Categories
+                                            <h6 class="mb-0">Rating Categories</h6>
                                         </div>
-                                        <div class="card-body">
-                                            <!-- Quality Management System -->
+                                        <div class="card-body">                                            <!-- Quality Management System -->
                                             <div class="mb-4">
                                                 <label class="form-label d-flex justify-content-between align-items-center">
                                                     <span>Quality Management System</span>
                                                     <small class="text-muted">Weight: 30%</small>
                                                 </label>
-                                                <div class="rating-input-wrapper" data-weight="30">
+                                                <div class="rating-input-wrapper" data-category="quality-system" data-weight="30">
                                                     <div class="rating-stars">
                                                         <i class="bi bi-star" data-rating="1"></i>
                                                         <i class="bi bi-star" data-rating="2"></i>
@@ -172,16 +208,23 @@
                                                         <i class="bi bi-star" data-rating="5"></i>
                                                     </div>
                                                     <div class="rating-text mt-1"></div>
+                                                    <div class="criteria-list small text-muted mt-2">
+                                                        <ul>
+                                                            <li>Quality certifications (ISO 9001, ISO 13485)</li>
+                                                            <li>Quality manual and procedures</li>
+                                                            <li>Document control system</li>
+                                                            <li>Quality inspection records</li>
+                                                            <li>Calibration management</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <!-- Technical Capability -->
+                                            </div>                                            <!-- Technical Capability -->
                                             <div class="mb-4">
                                                 <label class="form-label d-flex justify-content-between align-items-center">
                                                     <span>Technical Capability</span>
                                                     <small class="text-muted">Weight: 25%</small>
                                                 </label>
-                                                <div class="rating-input-wrapper" data-weight="25">
+                                                <div class="rating-input-wrapper" data-category="technical" data-weight="25">
                                                     <div class="rating-stars">
                                                         <i class="bi bi-star" data-rating="1"></i>
                                                         <i class="bi bi-star" data-rating="2"></i>
@@ -190,16 +233,23 @@
                                                         <i class="bi bi-star" data-rating="5"></i>
                                                     </div>
                                                     <div class="rating-text mt-1"></div>
+                                                    <div class="criteria-list small text-muted mt-2">
+                                                        <ul>
+                                                            <li>Manufacturing/service capabilities</li>
+                                                            <li>Technical expertise and resources</li>
+                                                            <li>Equipment and facilities</li>
+                                                            <li>Process controls</li>
+                                                            <li>R&D capabilities</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <!-- Financial Stability -->
+                                            </div>                                            <!-- Financial Stability -->
                                             <div class="mb-4">
                                                 <label class="form-label d-flex justify-content-between align-items-center">
                                                     <span>Financial Stability</span>
                                                     <small class="text-muted">Weight: 20%</small>
                                                 </label>
-                                                <div class="rating-input-wrapper" data-weight="20">
+                                                <div class="rating-input-wrapper" data-category="financial" data-weight="20">
                                                     <div class="rating-stars">
                                                         <i class="bi bi-star" data-rating="1"></i>
                                                         <i class="bi bi-star" data-rating="2"></i>
@@ -208,16 +258,23 @@
                                                         <i class="bi bi-star" data-rating="5"></i>
                                                     </div>
                                                     <div class="rating-text mt-1"></div>
+                                                    <div class="criteria-list small text-muted mt-2">
+                                                        <ul>
+                                                            <li>Financial statements</li>
+                                                            <li>Credit rating</li>
+                                                            <li>Business stability</li>
+                                                            <li>Payment terms and conditions</li>
+                                                            <li>Financial references</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <!-- Delivery Performance -->
+                                            </div>                                            <!-- Delivery Performance -->
                                             <div class="mb-4">
                                                 <label class="form-label d-flex justify-content-between align-items-center">
                                                     <span>Delivery Performance</span>
                                                     <small class="text-muted">Weight: 15%</small>
                                                 </label>
-                                                <div class="rating-input-wrapper" data-weight="15">
+                                                <div class="rating-input-wrapper" data-category="delivery" data-weight="15">
                                                     <div class="rating-stars">
                                                         <i class="bi bi-star" data-rating="1"></i>
                                                         <i class="bi bi-star" data-rating="2"></i>
@@ -226,16 +283,23 @@
                                                         <i class="bi bi-star" data-rating="5"></i>
                                                     </div>
                                                     <div class="rating-text mt-1"></div>
+                                                    <div class="criteria-list small text-muted mt-2">
+                                                        <ul>
+                                                            <li>On-time delivery performance</li>
+                                                            <li>Lead time management</li>
+                                                            <li>Transportation capabilities</li>
+                                                            <li>Packaging and handling</li>
+                                                            <li>Emergency response capability</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <!-- Service & Support -->
+                                            </div>                                            <!-- Service & Support -->
                                             <div class="mb-4">
                                                 <label class="form-label d-flex justify-content-between align-items-center">
                                                     <span>Service & Support</span>
                                                     <small class="text-muted">Weight: 10%</small>
                                                 </label>
-                                                <div class="rating-input-wrapper" data-weight="10">
+                                                <div class="rating-input-wrapper" data-category="service" data-weight="10">
                                                     <div class="rating-stars">
                                                         <i class="bi bi-star" data-rating="1"></i>
                                                         <i class="bi bi-star" data-rating="2"></i>
@@ -244,6 +308,15 @@
                                                         <i class="bi bi-star" data-rating="5"></i>
                                                     </div>
                                                     <div class="rating-text mt-1"></div>
+                                                    <div class="criteria-list small text-muted mt-2">
+                                                        <ul>
+                                                            <li>Technical support</li>
+                                                            <li>Response to inquiries</li>
+                                                            <li>Problem resolution</li>
+                                                            <li>After-sales service</li>
+                                                            <li>Communication effectiveness</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,7 +330,7 @@
                                                 <div class="col-md-4">
                                                     <div class="score-display text-center">
                                                         <h3 class="mb-0" id="totalScore">0</h3>
-                                                        <small class="text-muted">Total Score</small>
+                                                        <small class="text-muted">Total Score (out of 100)</small>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -267,29 +340,51 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <div class="recommendation-display text-center">
+                                                    <div class="recommendation-display">
+                                                        <label class="form-label">Recommendation*</label>
                                                         <select class="form-select" id="recommendation" required>
                                                             <option value="">Select Action...</option>
-                                                            <option value="approve">Approve</option>
-                                                            <option value="conditional">Conditional Approval</option>
-                                                            <option value="reject">Reject</option>
+                                                            <option value="approve">Approve (Score ≥ 80)</option>
+                                                            <option value="conditional">Conditional Approval (60-79)</option>
+                                                            <option value="reject">Reject (Score < 60)</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!-- Notes and Evidence -->
+                                            <!-- Assessment Summary -->
                                             <div class="mb-3">
-                                                <label class="form-label">Assessment Notes</label>
-                                                <textarea class="form-control" id="assessmentNotes" rows="3"></textarea>
+                                                <label class="form-label">Strengths</label>
+                                                <textarea class="form-control" id="strengths" rows="2"></textarea>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label">Areas for Improvement</label>
+                                                <textarea class="form-control" id="improvements" rows="2"></textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Risk Assessment*</label>
+                                                <select class="form-select" id="riskLevel" required>
+                                                    <option value="">Select Risk Level...</option>
+                                                    <option value="low">Low Risk</option>
+                                                    <option value="medium">Medium Risk</option>
+                                                    <option value="high">High Risk</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Additional Notes</label>
+                                                <textarea class="form-control" id="assessmentNotes" rows="3" placeholder="Enter any additional observations, requirements, or follow-up actions..."></textarea>
                                             </div>
 
                                             <!-- Evidence Upload -->
                                             <div class="mb-3">
-                                                <label class="form-label">Supporting Evidence</label>
+                                                <label class="form-label">Supporting Evidence*</label>
                                                 <div class="upload-zone" id="evidenceUploadZone">
                                                     <i class="bi bi-cloud-upload fs-2"></i>
                                                     <p>Drag & drop evidence files here or click to browse</p>
+                                                    <p class="text-muted small">Required: Quality certifications, Financial statements, Technical specifications, etc.</p>
                                                     <input type="file" class="d-none" id="evidenceFileInput" multiple>
                                                 </div>
                                                 <div id="uploadedEvidence" class="mt-2"></div>
